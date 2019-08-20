@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { YoutubeService } from './youtube.service';
 
 @Component({
   selector: 'app-root',
   template: `
     <nb-layout>
-    
+
       <nb-layout-header fixed>
-      <!-- Insert header here -->
+      Insert header here
       </nb-layout-header>
-    
+
       <nb-layout-column>
-    
-    
+
+
         <!--The content below is only a placeholder and can be replaced.-->
         <div style="text-align:center">
           <h1>
@@ -32,17 +33,24 @@ import { Component } from '@angular/core';
           </li>
         </ul>
         <router-outlet></router-outlet>
-      
+
       </nb-layout-column>
-    
+
       <nb-layout-footer fixed>
-      <!-- Insert footer here -->
+      Insert footer here
       </nb-layout-footer>
-    
+
     </nb-layout>
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'ng-sandbox';
+
+  public constructor(private youtubeService: YoutubeService) { }
+
+  public ngOnInit(): void {
+    this.youtubeService.listEthosVideos().subscribe(x => console.log(x));
+  }
 }
