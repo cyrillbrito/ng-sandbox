@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -20,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     NbLayoutModule,
     NbEvaIconsModule,
     HttpClientModule,
+    NbCardModule,
+    NbListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

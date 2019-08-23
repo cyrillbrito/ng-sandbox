@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-import { ChannelListResponse } from './models/channels';
+import { Channel } from './models/channels';
+import { environment } from 'src/environments/environment';
+import { ListResponse } from './models/base';
+import { YtPlaylistItem } from './models/playlist-items';
 
 @Injectable({
   providedIn: 'root'
@@ -11,33 +14,34 @@ export class YoutubeService {
 
   constructor(private http: HttpClient) { }
 
-  public ethosLabVideos(): Observable<any> {
-
-    return this.http.get('https://www.googleapis.com/youtube/v3/activities?part=snippet&channelId=UCFKDEp9si4RmHFWJW1vYsMA&key=KEY_PLACEHOLDER');
-
+  public channelUploads(channelId: string): Observable<YtPlaylistItem[]> {
+    return this.channels(channelId).pipe(
+      switchMap(response => {
+        const playlistId = response.items[0].contentDetails.relatedPlaylists.uploads;
+        return this.playlistItems(playlistId);
+      }),
+      map(response => response.items)
+    );
   }
 
-  public listEthosVideos(): any {
+  public channels(channelId: string): Observable<ListResponse<Channel>> {
 
+    let url = 'https://www.googleapis.com/youtube/v3/channels';
+    url += '?part=contentDetails';
+    url += '&id=' + channelId;
+    url += '&key=' + environment.googleApiKey;
 
-    let channelUrl = 'https://www.googleapis.com/youtube/v3/channels';
-    channelUrl += '?part=contentDetails';
-    channelUrl += '&id=UCFKDEp9si4RmHFWJW1vYsMA';
-    channelUrl += '&key=KEY_PLACEHOLDER';
-
-    return this.http.get<ChannelListResponse>(channelUrl).pipe(switchMap(response => {
-
-      let playlistUrl = 'https://www.googleapis.com/youtube/v3/playlistItems';
-      playlistUrl += '?part=snippet';
-      playlistUrl += '&playlistId=' + response.items[0].contentDetails.relatedPlaylists.uploads;
-      playlistUrl += '&key=KEY_PLACEHOLDER';
-
-      return this.http.get(playlistUrl);
-
-    }), map(response => {
-      console.log(response);
-    }));
+    return this.http.get<ListResponse<any>>(url);
   }
 
+  public playlistItems(playlistId: string): Observable<ListResponse<YtPlaylistItem>> {
 
+    let url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+    url += '?part=snippet';
+    url += '&playlistId=' + playlistId;
+    url += "&maxResults=30";
+    url += '&key=' + environment.googleApiKey;
+
+    return this.http.get<ListResponse<any>>(url);
+  }
 }

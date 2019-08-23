@@ -1,15 +1,6 @@
+import { YtBase } from './base';
 
-export interface PlaylistItemsListResponse {
-  kind: string;
-  etag: string;
-  nextPageToken: string;
-  pageInfo: PageInfo;
-  items: Item[];
-}
-
-export interface Item {
-  kind: string;
-  etag: string;
+export interface YtPlaylistItem extends YtBase {
   id: string;
   snippet: Snippet;
   contentDetails: ContentDetails;
@@ -39,14 +30,14 @@ export interface ResourceID {
 }
 
 export interface Thumbnails {
-  default: Default;
-  medium: Default;
-  high: Default;
-  standard: Default;
-  maxres: Default;
+  default: Image;
+  medium: Image;
+  high: Image;
+  standard: Image;
+  maxres: Image;
 }
 
-export interface Default {
+export interface Image {
   url: string;
   width: number;
   height: number;
@@ -54,9 +45,4 @@ export interface Default {
 
 export interface Status {
   privacyStatus: string;
-}
-
-export interface PageInfo {
-  totalResults: number;
-  resultsPerPage: number;
 }
