@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, empty, throwError } from 'rxjs';
 import { Tag } from './models/test';
 
 @Injectable({
@@ -9,29 +9,67 @@ export class StorageService {
 
   constructor() { }
 
-  public channels(): Observable<string[]> {
-    return of([
-      'UCFKDEp9si4RmHFWJW1vYsMA'
-    ]);
+  public getChannels(): string[] {
+
+    let channels = this.get<string[]>('channels');
+
+    if (!channels) {
+      channels = [
+        'UCFKDEp9si4RmHFWJW1vYsMA'
+      ];
+      this.set('channels', channels);
+    }
+
+    return channels;
   }
 
-  public tags(): Observable<Tag[]> {
-    return of([
-      {
-        name: 'all',
-        videos: [],
-        rule: () => true
-      },
-      {
-        name: 'Plays',
-        videos: [],
-        rule: v => v.snippet.title.includes('Etho Plays Minecraft')
-      },
-      {
-        name: 'Team Canada',
-        videos: [],
-        rule: v => v.snippet.title.includes('Team Canada')
-      }
-    ] as Tag[]);
+  public getTags(): Tag[] {
+
+    let tags = this.get<Tag[]>('tags');
+
+    if (!tags) {
+      tags = [
+        {
+          name: 'all',
+          videos: [],
+          rules: [{ key: 'snippet.title', comparator: 0, value: '' }]
+        },
+        {
+          name: 'Plays',
+          videos: [],
+          rules: [{ key: 'snippet.title', comparator: 0, value: 'Plays' }]
+        },
+        {
+          name: 'Team Canada',
+          videos: [],
+          rules: [{ key: 'snippet.title', comparator: 0, value: 'Canada' }]
+        }
+      ];
+      this.set('tags', tags);
+    }
+
+    return tags;
+  }
+
+  public setTag(tag: Tag): void {
+
+    const tags = this.getTags();
+
+    const currTag = tags.find(x => x.name === tag.name);
+
+    currTag.videos = tag.videos;
+
+    this.set('tags', tags);
+  }
+
+  private get<T>(key: string): T {
+    const str = localStorage.getItem(key);
+    if (str) {
+      return JSON.parse(str);
+    }
+  }
+
+  private set(key: string, obj: any): void {
+    localStorage.setItem(key, JSON.stringify(obj));
   }
 }

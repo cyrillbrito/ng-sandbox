@@ -1,0 +1,12 @@
+<nb-card [size]="'medium'">
+  <nb-card-header>{{ tag.name }}</nb-card-header>
+  <nb-list>
+    <nb-list-item *ngFor="let video of tag.videos">
+      <img [src]="video.snippet.thumbnails.medium.url">
+
+      {{ video.snippet.title }}
+      <button nbButton status="primary"><nb-icon icon="eye-outline"></nb-icon>Watched</button>
+      <button nbButton status="danger"><nb-icon icon="trash-2-outline"></nb-icon>Dismiss</button>
+    </nb-list-item>
+  </nb-list>
+</nb-card>

@@ -4,13 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule, NbIconModule, NbButtonModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
+import { TagCardComponent } from './tag-card/tag-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TagCardComponent
   ],
   imports: [
     BrowserModule,
@@ -19,9 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
     NbEvaIconsModule,
+    NbIconModule,
     HttpClientModule,
     NbCardModule,
     NbListModule,
+    NbButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

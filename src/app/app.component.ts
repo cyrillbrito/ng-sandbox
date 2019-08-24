@@ -12,8 +12,6 @@ import { Tag } from './models/test';
 })
 export class AppComponent implements OnInit {
 
-  title = 'ng-sandbox';
-
   public tags: Tag[];
 
   public constructor(
@@ -24,17 +22,11 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
 
-    this.storageService.tags().pipe(
-      switchMap(tags => {
-        this.tags = tags;
-        return this.storageService.channels();
-      }),
-      switchMap(channels => {
-        return this.youtubeService.channelUploads(channels[0]);
-      }),
-      map(videos => {
-        this.tagSorterService.sort(this.tags, videos);
-      })
-    ).subscribe();
+    this.tags = this.storageService.getTags();
+    const channels = this.storageService.getChannels();
+
+    this.youtubeService.channelUploads(channels[0]).subscribe(videos => {
+      this.tagSorterService.sort2(this.tags, videos);
+    });
   }
 }
