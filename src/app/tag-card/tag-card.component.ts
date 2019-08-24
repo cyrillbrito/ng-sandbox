@@ -17,11 +17,12 @@ export class TagCardComponent implements OnInit {
   constructor() { }
 
   public ngOnInit(): void {
-    this.tag.videos.filter(x => !x.status);
+    this.videos = this.tag.videos.filter(x => !x.watched && !x.dismissed);
   }
 
-  public watched(video: YtPlaylistItem): void {
-    // video.
+  public watched(index: number, video: YtPlaylistItem): void {
+    video.watched = true;
+    this.videos.splice(index, 1);
   }
 
 

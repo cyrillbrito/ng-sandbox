@@ -4,9 +4,11 @@
     Insert header here
   </nb-layout-header>
 
-  <nb-layout-column>
+  <nb-layout-column [nbSpinner]="loading" nbSpinnerStatus="info" nbSpinnerSize="giant">
 
-    <app-tag-card *ngFor="let tag of tags" [tag]="tag"></app-tag-card>
+    <ng-container *ngIf="!loading">
+      <app-tag-card *ngFor="let tag of tags" [tag]="tag"></app-tag-card>
+    </ng-container>
 
     <!--<router-outlet></router-outlet>-->
   </nb-layout-column>

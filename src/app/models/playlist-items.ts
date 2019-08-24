@@ -1,6 +1,11 @@
 import { YtBase } from './base';
 
-export interface YtPlaylistItem extends YtBase {
+export interface AppVideo {
+  watched: boolean;
+  dismissed: boolean;
+}
+
+export interface YtPlaylistItem extends YtBase, AppVideo {
   id: string;
   snippet: Snippet;
   contentDetails: ContentDetails;

@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
 
   public tags: Tag[];
 
+  public loading = true;
+
   public constructor(
     private youtubeService: YoutubeService,
     private storageService: StorageService,
@@ -25,8 +27,10 @@ export class AppComponent implements OnInit {
     this.tags = this.storageService.getTags();
     const channels = this.storageService.getChannels();
 
+
     this.youtubeService.channelUploads(channels[0]).subscribe(videos => {
       this.tagSorterService.sort2(this.tags, videos);
+      this.loading = false;
     });
   }
 }
