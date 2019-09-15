@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, empty, throwError } from 'rxjs';
-import { Tag } from './models/test';
+import { Tag, StorageTag } from './models/test';
+import { YtPlaylistItem } from './models/playlist-items';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class StorageService {
 
   public getTags(): Tag[] {
 
-    let tags = this.get<Tag[]>('tags');
+    let tags: StorageTag[] = this.get<StorageTag[]>('tags');
+
 
     if (!tags) {
       tags = [
@@ -46,9 +48,36 @@ export class StorageService {
         }
       ];
       this.set('tags', tags);
+    } else {
+
+      const allVideos = this.getVideos();
+
+      for (const tag of tags) {
+        const videos = [];
+        for (const videoId of tag.videos) {
+          const video = allVideos.find(x => x.id === videoId);
+          videos.push(video);
+        }
+        tag.videos = videos;
+      }
     }
 
-    return tags;
+    return tags as unknown as Tag[];
+  }
+
+  public getVideos(): YtPlaylistItem[] {
+
+    let videos = this.get<YtPlaylistItem[]>('videos');
+
+    if (!videos) {
+      videos = [];
+    }
+
+    return videos;
+  }
+
+  public setVideos(videos: YtPlaylistItem[]): void {
+    this.set('videos', videos);
   }
 
   public setTag(tag: Tag): void {
@@ -57,9 +86,15 @@ export class StorageService {
 
     const currTag = tags.find(x => x.name === tag.name);
 
-    currTag.videos = tag.videos;
+    (currTag as unknown as StorageTag).videos = tag.videos.map(x => x.id);
 
     this.set('tags', tags);
+  }
+
+  public setTags(tags: Tag[]): void {
+    for (const tag of tags) {
+      this.setTag(tag);
+    }
   }
 
   private get<T>(key: string): T {

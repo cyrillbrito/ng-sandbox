@@ -1,10 +1,14 @@
 import { YtPlaylistItem } from './playlist-items';
 
+export interface StorageTag {
+  name: string;
+  videos: string[];
+  rules: Rule[];
+}
+
 export interface Tag {
   name: string;
   videos: YtPlaylistItem[];
-  // rule: (ytPlaylistItem: YtPlaylistItem) => boolean;
-
   rules: Rule[];
 }
 

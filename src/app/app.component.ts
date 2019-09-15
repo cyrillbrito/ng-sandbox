@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { YoutubeService } from './youtube.service';
 import { StorageService } from './storage.service';
 import { TagSorterService } from './tag-sorter.service';
-import { switchMap, map } from 'rxjs/operators';
 import { Tag } from './models/test';
+import { YtPlaylistItem } from './models/playlist-items';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,9 @@ import { Tag } from './models/test';
 export class AppComponent implements OnInit {
 
   public tags: Tag[];
+  private channels: string[];
+
+  private videos: YtPlaylistItem[];
 
   public loading = true;
 
@@ -25,12 +28,26 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
 
     this.tags = this.storageService.getTags();
-    const channels = this.storageService.getChannels();
+    this.channels = this.storageService.getChannels();
+    this.videos = this.storageService.getVideos();
 
+    setInterval(() => console.log(this.tags), 5000);
 
-    this.youtubeService.channelUploads(channels[0]).subscribe(videos => {
+    this.loading = false;
+  }
+
+  public getNewVideos(): void {
+    this.youtubeService.channelUploads(this.channels[0]).subscribe(videos => {
+
       this.tagSorterService.sort2(this.tags, videos);
-      this.loading = false;
+      this.videos.push(...videos);
+
+      this.storageService.setVideos(this.videos);
+      this.storageService.setTags(this.tags);
     });
+  }
+
+  print() {
+    console.log(this.tags);
   }
 }
