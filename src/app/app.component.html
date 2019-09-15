@@ -1,20 +1,14 @@
-<nb-layout>
+<nb-layout center>
 
   <nb-layout-header fixed>
-    Insert header here
-
-    <nb-actions style="margin-left: auto" size="large">
-      <nb-action icon="cloud-download-outline" (click)="getNewVideos()"></nb-action>
-      <nb-action icon="refresh-outline" (click)="print()"></nb-action>
+    <nb-actions>
+      <nb-action icon="home-outline" link="/"></nb-action>
+      <nb-action icon="play-circle-outline" link="/youtube"></nb-action>
+      <nb-action icon="trending-up-outline" link="/ynab"></nb-action>
     </nb-actions>
   </nb-layout-header>
 
-  <nb-layout-column [nbSpinner]="loading" nbSpinnerStatus="info" nbSpinnerSize="giant">
+  <nb-layout-column>
     <router-outlet></router-outlet>
   </nb-layout-column>
-
-  <nb-layout-footer fixed>
-    Insert footer here
-  </nb-layout-footer>
-
 </nb-layout>
