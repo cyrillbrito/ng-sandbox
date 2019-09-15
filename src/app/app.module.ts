@@ -8,6 +8,7 @@ import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule, NbIconModule
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { TagCardComponent } from './tag-card/tag-card.component';
+import { YnabModule } from './ynab/ynab.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TagCardComponent } from './tag-card/tag-card.component';
     NbButtonModule,
     NbSpinnerModule,
     NbActionsModule,
+    YnabModule
   ],
   providers: [],
   bootstrap: [AppComponent]

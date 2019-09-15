@@ -26,6 +26,7 @@
     "eva-icons": "^1.1.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
+    "ynab": "^1.16.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
