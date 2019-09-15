@@ -10,11 +10,6 @@
   </nb-layout-header>
 
   <nb-layout-column [nbSpinner]="loading" nbSpinnerStatus="info" nbSpinnerSize="giant">
-
-    <!-- <ng-container *ngIf="!loading">
-      <app-tag-card *ngFor="let tag of tags" [tag]="tag"></app-tag-card>
-    </ng-container> -->
-
     <router-outlet></router-outlet>
   </nb-layout-column>
 

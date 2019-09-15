@@ -1,35 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbActionsModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
-import { TagCardComponent } from './tag-card/tag-card.component';
 import { YnabModule } from './ynab/ynab.module';
+import { YoutubeModule } from './youtube/youtube.module';
+import { NbThemeModule } from '@nebular/theme';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TagCardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
     NbEvaIconsModule,
-    NbIconModule,
     HttpClientModule,
-    NbCardModule,
-    NbListModule,
-    NbButtonModule,
-    NbSpinnerModule,
-    NbActionsModule,
-    YnabModule
+    YoutubeModule,
+    YnabModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
