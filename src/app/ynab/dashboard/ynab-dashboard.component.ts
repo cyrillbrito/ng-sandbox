@@ -32,7 +32,7 @@ export class YnabDashboardComponent implements OnInit {
     }
 
     const reader = new FileReader();
-    reader.onload = event => this.processCsv(event.target.result as string);
+    reader.onload = event => this.processCsv((event.target as any).result as string);
     reader.readAsText(file, 'UTF-16');
   }
 
