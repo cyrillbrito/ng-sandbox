@@ -58,6 +58,7 @@ export class StorageService {
           const video = allVideos.find(x => x.id === videoId);
           videos.push(video);
         }
+        // @ts-ignore
         tag.videos = videos;
       }
     }
@@ -101,6 +102,9 @@ export class StorageService {
     const str = localStorage.getItem(key);
     if (str) {
       return JSON.parse(str);
+    } else {
+      // @ts-ignore
+      return;
     }
   }
 

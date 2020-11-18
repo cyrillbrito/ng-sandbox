@@ -43,6 +43,7 @@ export class TagSorterService {
       if (key in value) {
         value = value[key];
       } else {
+        // @ts-ignore
         return;
       }
     }

@@ -7,7 +7,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { YnabModule } from './ynab/ynab.module';
 import { YoutubeModule } from './youtube/youtube.module';
-import { NbThemeModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -24,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     YoutubeModule,
     YnabModule,
     SharedModule,
+    // NbLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
