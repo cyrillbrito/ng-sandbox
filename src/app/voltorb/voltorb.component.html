@@ -1,0 +1,83 @@
+<nb-card status="success">
+  <nb-card-header>Voltorb Flip</nb-card-header>
+  <nb-card-body>
+    <p>Voltorb Flip is a minigame in the Pokémon HeartGold and SoulSilver games. The game may be described as a cross
+      between Picross and Minesweeper.</p>
+    <p>It features a five-by-five grid of tiles, underneath of which are hidden numbers (multiplier cards which affect
+      the player's coins) and Voltorb (which Selfdestruct).</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/Voltorb_Flip" target="_blank">Learn more about it here.</a>
+  </nb-card-body>
+</nb-card>
+
+<nb-card status="success">
+  <nb-card-header>How does the solver workd?</nb-card-header>
+  <nb-card-body>
+    <p>First fill the coins and bombs inputs and after that click on compute, the solver will try every possible
+      solution and display all the safe plays.</p>
+    <p>Because the game is based on luck there may be not safe play, so the solver also displays the probabilaty of any
+      cell having a voltorb.</p>
+    <p>When any cell is filled by the user, the solver automatecly updates evey cell with the updated probalilaties.</p>
+    <a href="http://www.voltorbflip.com" target="_blank">mrtenda better and prettier version of the solver.</a>
+  </nb-card-body>
+</nb-card>
+
+<nb-card status="success">
+  <nb-card-header>Solver</nb-card-header>
+  <nb-card-body>
+
+    <div class="row" *ngFor="let row of board; let rIndex = index">
+
+      <div class="colum" *ngFor="let cell of row; let cIndex = index" [class.red]="cell.value === 0"
+        [class.green]="cell.value > 0">
+        <input type="number" [(ngModel)]="cell.value" (ngModelChange)="brute()">
+
+        <div style="display: flex; flex-direction: column;">
+          <div *ngIf="cell.value == null && cell.canBe[0]">{{ cell.percentage }}💣</div>
+          <div *ngIf="cell.value == null && cell.canBe[1]">{{ cell.foundCombR[1] }},{{ cell.foundComb[1] }}1️⃣</div>
+          <div *ngIf="cell.value == null && cell.canBe[2]">{{ cell.foundCombR[2] }},{{ cell.foundComb[2] }}2️⃣</div>
+          <div *ngIf="cell.value == null && cell.canBe[3]">{{ cell.foundCombR[3] }},{{ cell.foundComb[3] }}3️⃣</div>
+        </div>
+
+      </div>
+
+      <div class="row-extras">
+        <label>
+          Coins
+          <input type="number" [tabindex]="(rIndex+1) * 2" [(ngModel)]="rowCoins[rIndex].value">
+        </label>
+      </div>
+
+      <div class="row-extras">
+        <label>
+          Bombs
+          <input type="number" [tabindex]="(rIndex+1) * 2 + 1" [(ngModel)]="rowBombs[rIndex].value">
+        </label>
+      </div>
+
+    </div>
+
+    <!-- Last row coins -->
+    <div class="row">
+      <div class="col-extras" *ngFor="let coin of colCoins; let index = index">
+        <label>
+          Coins
+          <input type="number" [tabindex]="20 + index * 2" [(ngModel)]="coin.value">
+        </label>
+      </div>
+    </div>
+
+    <!-- Last row bombs -->
+    <div class="row">
+      <div class="col-extras" *ngFor="let bomb of colBombs; let index = index">
+        <label>
+          Bombs
+          <input type="number" [tabindex]="21 + index * 2" [(ngModel)]="bomb.value">
+        </label>
+      </div>
+    </div>
+
+    <button nbButton status="primary" (click)="brute()"> COMPUTE</button>
+    <button nbButton status="danger" (click)="reset()">RESET</button>
+
+  </nb-card-body>
+</nb-card>

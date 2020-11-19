@@ -9,10 +9,13 @@ import { YnabModule } from './ynab/ynab.module';
 import { YoutubeModule } from './youtube/youtube.module';
 import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
+import { VoltorbComponent } from './voltorb/voltorb.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VoltorbComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
     YnabModule,
     SharedModule,
     // NbLayoutModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
