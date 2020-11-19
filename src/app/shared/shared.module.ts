@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbLayoutModule, NbCardModule, NbListModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbActionsModule } from '@nebular/theme';
+import { NbLayoutModule, NbCardModule, NbListModule, NbIconModule, NbButtonModule, NbSpinnerModule, NbActionsModule, NbAlertModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -8,24 +8,24 @@ import { NbLayoutModule, NbCardModule, NbListModule, NbIconModule, NbButtonModul
   imports: [
     CommonModule,
     NbActionsModule,
+    NbAlertModule,
     NbButtonModule,
     NbCardModule,
     NbIconModule,
     NbLayoutModule,
     NbListModule,
     NbSpinnerModule,
-    // NbThemeModule.forRoot({ name: 'default' }),
   ],
   exports: [
     CommonModule,
     NbActionsModule,
+    NbAlertModule,
     NbButtonModule,
     NbCardModule,
     NbIconModule,
     NbLayoutModule,
     NbListModule,
     NbSpinnerModule,
-    // NbThemeModule
   ]
 })
 export class SharedModule { }
